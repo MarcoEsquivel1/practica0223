@@ -8,12 +8,12 @@
 
 
 </div>
-<footer class="bg-dark text-center text-white">
+</body>
+<footer class="bg-dark text-center text-white" style="height: 6%">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         Marco Rene Esquivel Juarez
     </div>
 </footer>
-</body>
 
 </html>
 
