@@ -14,16 +14,18 @@ public class ClienteDAO {
     public List<Cliente> getClientes() throws SQLException {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String nombre = rs.getString("nombre");
-            String direccion = rs.getString("direccion");
-            String telefono = rs.getString("telefono");
-            String email = rs.getString("email");
-            Cliente cliente = new Cliente(id, nombre, direccion, telefono, email);
-            clientes.add(cliente);
+        try (Statement st = con.createStatement()) {
+            try (ResultSet rs = st.executeQuery(sql)) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String nombre = rs.getString("nombre");
+                    String direccion = rs.getString("direccion");
+                    String telefono = rs.getString("telefono");
+                    String email = rs.getString("email");
+                    Cliente cliente = new Cliente(id, nombre, direccion, telefono, email);
+                    clientes.add(cliente);
+                }
+            }
         }
         return clientes;
     }
