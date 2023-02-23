@@ -15,17 +15,20 @@ public class PedidoDAO {
 
     public List<Pedido> getPedidos() throws SQLException {
         List<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedidos";
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            int idCliente = rs.getInt("id_cliente");
-            Date fecha = rs.getDate("fecha");
-            BigDecimal total = rs.getBigDecimal("total");
-            String estado = rs.getString("estado");
-            Pedido pedido = new Pedido(id, idCliente, fecha, total, estado);
-            pedidos.add(pedido);
+        String sql = "SELECT * FROM pedidos inner join clientes on pedidos.id_cliente = clientes.id";
+        try (Statement st = con.createStatement()) {
+            try (ResultSet rs = st.executeQuery(sql)) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idCliente = rs.getInt("id_cliente");
+                    Date fecha = rs.getDate("fecha");
+                    BigDecimal total = rs.getBigDecimal("total");
+                    String estado = rs.getString("estado");
+                    String nombreCliente = rs.getString("nombre");
+                    Pedido pedido = new Pedido(id, idCliente, fecha, total, estado, nombreCliente);
+                    pedidos.add(pedido);
+                }
+            }
         }
         return pedidos;
     }

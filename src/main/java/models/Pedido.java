@@ -9,6 +9,16 @@ public class Pedido {
     private Date fecha;
     private BigDecimal total;
     private String estado;
+    private String nombreCliente;
+
+    public Pedido(int id, int idCliente, Date fecha, BigDecimal total, String estado, String nombreCliente) {
+        this.id = id;
+        this.idCliente = idCliente;
+        this.fecha = fecha;
+        this.total = total;
+        this.estado = estado;
+        this.nombreCliente = nombreCliente;
+    }
 
     public Pedido(int id, int idCliente, Date fecha, BigDecimal total, String estado) {
         this.id = id;
@@ -56,5 +66,13 @@ public class Pedido {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 }
