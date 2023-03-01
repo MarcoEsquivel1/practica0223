@@ -1,12 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.Cliente" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: Marco
   Date: 02/20/23
   Time: 4:57 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/layout/nav.jsp"></jsp:include>
 <h1 class="mb-5" style="text-align: center">Clientes</h1>
 
@@ -22,6 +24,7 @@
     </tr>
     </thead>
     <tbody>
+    <a href="${pageContext.request.contextPath}/clientes/create" class="btn btn-success my-3 btn-sm">Agregar</a>
     <c:if test="${clientes != null}">
         <c:forEach items="${clientes}" var="client">
             <tr>
@@ -31,8 +34,8 @@
                 <td>${client.telefono}</td>
                 <td>${client.email}</td>
                 <td>
-                    <a href="editClient.jsp?id=${client.id}" class="btn btn-primary">Editar</a>
-                    <a href="deleteClient.jsp?id=${client.id}" class="btn btn-danger">Eliminar</a>
+                    <a href="${pageContext.request.contextPath}/clientes/edit?id=${client.id}" class="btn btn-primary">Editar</a>
+                    <a href="${pageContext.request.contextPath}/clientes/delete?id=${client.id}" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         </c:forEach>

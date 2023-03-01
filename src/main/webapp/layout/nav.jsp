@@ -20,14 +20,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 6%">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/app">Marco</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="cliente">Clientes</a>
-                <a class="nav-link" href="pedido">Pedidos</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/clientes">Clientes</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/pedidos">Pedidos</a>
             </div>
         </div>
     </div>

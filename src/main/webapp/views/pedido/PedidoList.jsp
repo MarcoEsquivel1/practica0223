@@ -5,6 +5,7 @@
   Time: 4:57 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/layout/nav.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h1 class="mb-5" style="text-align: center">Pedidos</h1>
@@ -21,6 +22,8 @@
     </tr>
     </thead>
     <tbody>
+    <a href="${pageContext.request.contextPath}/pedidos/create" class="btn btn-success my-3 btn-sm">Agregar</a>
+
     <c:if test="${pedidos != null}">
         <c:forEach items="${pedidos}" var="pedido">
             <tr>

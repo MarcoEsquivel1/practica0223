@@ -11,7 +11,7 @@
 </body>
 <footer class="bg-dark text-center text-white" style="height: 6%">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        Marco Rene Esquivel Juarez
+        Marco Rene Esquivel Juarez & Mery Elizabeth Acevedo Montoya
     </div>
 </footer>
 

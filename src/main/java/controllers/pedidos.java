@@ -1,31 +1,29 @@
 package controllers;
 
+import dao.PedidoDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import models.Cliente;
-import dao.ClienteDAO;
+import models.Pedido;
 import utils.Conexion;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static java.lang.System.out;
-
-@WebServlet(name = "cliente", value = "/cliente")
-public class cliente extends HttpServlet {
+@WebServlet(name = "pedidos", urlPatterns = {"/pedidos", "/pedidos/create", "/pedidos/update", "/pedidos/delete"})
+public class pedidos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String view = "views/cliente/ClienteList.jsp";
-        List<Cliente> clientes = null;
+        String view = "views/pedido/PedidoList.jsp";
+        List<Pedido> pedidos = null;
         try {
-            ClienteDAO ClienteDAO = new ClienteDAO(Conexion.getConnection());
-            clientes = ClienteDAO.getClientes();
+            PedidoDAO PedidoDAO = new PedidoDAO(Conexion.getConnection());
+            pedidos = PedidoDAO.getPedidos();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        request.setAttribute("clientes", clientes);
+        request.setAttribute("pedidos", pedidos);
         request.getRequestDispatcher(view).forward(request, response);
     }
 
@@ -33,6 +31,4 @@ public class cliente extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-
-
 }
