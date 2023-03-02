@@ -14,7 +14,7 @@
         <div class="form-group my-3">
             <select>
                 <c:forEach items="${clientes}" var="client">
-                   <option>
+                   <option value="${client.id}">
                            ${client.nombre}
                    </option>
 
