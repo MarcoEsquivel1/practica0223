@@ -22,18 +22,18 @@ import models.Cliente;
 public class pedidos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String view = "views/pedido/PedidoList.jsp";
-        List<Pedido> pedidos = null;
-        try {
-            PedidoDAO PedidoDAO = new PedidoDAO(Conexion.getConnection());
-            pedidos = PedidoDAO.getPedidos();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        String action = request.getServletPath();
+        if (action.equals("/pedidos/create")) {
+            showNewForm(request, response);
+        } else if (action.equals("/pedidos/edit")) {
+            showEditForm(request, response);
+        } else if (action.equals("/pedidos/delete")) {
+            deletePedido(request, response);
+        } else {
+            listPedidos(request, response);
         }
-        request.setAttribute("pedidos", pedidos);
-        request.getRequestDispatcher(view).forward(request, response);
-    }
 
+    }
     
      private void listPedidos(HttpServletRequest request, HttpServletResponse response) {
         String view = "views/Pedidos/PedidoList.jsp";
