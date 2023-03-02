@@ -23,6 +23,7 @@
 
             </select>
         </div>
+    </div>
         <div class="form-group my-3">
             <label for="total">Total</label>
             <input type="number" step="0.01" class="form-control" id="total" name="total" value="${pedido.total}"  required>
@@ -36,7 +37,7 @@
             <input type="date" class="form-control" id="fecha" name="fecha" value="${pedido.fecha}" >
         </div>
     <div class="form-group my-3">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary" >Guardar</button>
     </div>
-</form>
+  </form>
 <jsp:include page="/layout/footer.jsp"></jsp:include>
