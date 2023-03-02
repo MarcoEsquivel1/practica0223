@@ -11,6 +11,9 @@ public class Pedido {
     private String estado;
     private String nombreCliente;
 
+    public Pedido() {
+    }
+
     public Pedido(int id, int idCliente, Date fecha, BigDecimal total, String estado, String nombreCliente) {
         this.id = id;
         this.idCliente = idCliente;
