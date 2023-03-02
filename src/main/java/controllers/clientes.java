@@ -28,64 +28,80 @@ public class clientes extends HttpServlet {
 
     }
 
-    private void listClientes(HttpServletRequest request, HttpServletResponse response) {
+    private void listClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String view = "views/cliente/ClienteList.jsp";
         List<Cliente> clientes = null;
         try {
             ClienteDAO ClienteDAO = new ClienteDAO(Conexion.getConnection());
             clientes = ClienteDAO.getClientes();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String error = "No se pudo obtener la lista de clientes";
+            request.setAttribute("error", error);
+            request.getRequestDispatcher(view).forward(request, response);
         }
         request.setAttribute("clientes", clientes);
         try {
             request.getRequestDispatcher(view).forward(request, response);
         } catch (ServletException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response) {
+    private void sendErrorToHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String error = "Ha ocurrido un error inesperado";
+        request.setAttribute("error", error);
+        response.sendRedirect(request.getContextPath() + "/");
+    }
+
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteForm.jsp";
         try {
             request.setAttribute("cliente", new Cliente());
             request.getRequestDispatcher(view).forward(request, response);
         } catch (ServletException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
 
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteUpdate.jsp";
         searchCliente(request, response, view);
     }
 
-    private void deleteCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteDelete.jsp";
         searchCliente(request, response, view);
     }
 
-    private void searchCliente(HttpServletRequest request, HttpServletResponse response, String view) {
+    private void searchCliente(HttpServletRequest request, HttpServletResponse response, String view) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Cliente cliente = null;
         try {
             ClienteDAO clienteDAO = new ClienteDAO(Conexion.getConnection());
             cliente = clienteDAO.buscarPorId(id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String error = "No se pudo obtener el cliente";
+            request.setAttribute("error", error);
+            try {
+                request.getRequestDispatcher(view).forward(request, response);
+            } catch (ServletException ex) {
+                sendErrorToHome(request, response);
+            } catch (IOException ex) {
+                sendErrorToHome(request, response);
+            }
         }
         request.setAttribute("cliente", cliente);
         try {
             request.getRequestDispatcher(view).forward(request, response);
         } catch (ServletException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
     }
 
@@ -101,7 +117,7 @@ public class clientes extends HttpServlet {
         }
     }
 
-    private void saveCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void saveCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteList.jsp";
         Cliente cliente = new Cliente();
         cliente.setNombre(request.getParameter("nombre"));
@@ -112,16 +128,24 @@ public class clientes extends HttpServlet {
             ClienteDAO clienteDAO = new ClienteDAO(Conexion.getConnection());
             clienteDAO.insertar(cliente);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String error = "No se pudo guardar el cliente";
+            request.setAttribute("error", error);
+            try {
+                request.getRequestDispatcher(view).forward(request, response);
+            } catch (ServletException ex) {
+                sendErrorToHome(request, response);
+            } catch (IOException ex) {
+                sendErrorToHome(request, response);
+            }
         }
         try {
             response.sendRedirect(request.getContextPath() + "/clientes");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
     }
 
-    private void updateCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void updateCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteList.jsp";
         Cliente cliente = new Cliente();
         cliente.setId(Integer.parseInt(request.getParameter("id")));
@@ -133,28 +157,44 @@ public class clientes extends HttpServlet {
             ClienteDAO clienteDAO = new ClienteDAO(Conexion.getConnection());
             clienteDAO.actualizar(cliente);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String error = "No se pudo actualizar el cliente";
+            request.setAttribute("error", error);
+            try {
+                request.getRequestDispatcher(view).forward(request, response);
+            } catch (ServletException ex) {
+                sendErrorToHome(request, response);
+            } catch (IOException ex) {
+                sendErrorToHome(request, response);
+            }
         }
         try {
             response.sendRedirect(request.getContextPath() + "/clientes");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
     }
 
-    private void destroyCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void destroyCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String view = "../views/cliente/ClienteList.jsp";
         int id = Integer.parseInt(request.getParameter("id"));
         try {
             ClienteDAO clienteDAO = new ClienteDAO(Conexion.getConnection());
             clienteDAO.eliminar(id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String error = "No se pudo eliminar el cliente";
+            request.setAttribute("error", error);
+            try {
+                request.getRequestDispatcher(view).forward(request, response);
+            } catch (ServletException ex) {
+                sendErrorToHome(request, response);
+            } catch (IOException ex) {
+                sendErrorToHome(request, response);
+            }
         }
         try {
             response.sendRedirect(request.getContextPath() + "/clientes");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            sendErrorToHome(request, response);
         }
     }
 }

@@ -1,6 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="models.Cliente" %>
-<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Marco
@@ -8,7 +5,10 @@
   Time: 4:57 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="models.Cliente" %>
+<%@ page import="java.util.List" %>
 <jsp:include page="/layout/nav.jsp"></jsp:include>
 <h1 class="mb-5" style="text-align: center">Clientes</h1>
 
@@ -39,6 +39,11 @@
                 </td>
             </tr>
         </c:forEach>
+    </c:if>
+    <c:if test="${error != null}">
+        <div class="alert alert-danger" role="alert">
+            ${error}
+        </div>
     </c:if>
     </tbody>
 </table>
